@@ -136,6 +136,44 @@ const DATA = {
     { name: "Lampung", population: 9.2 },
   ],
 
+  // Trade values are US$ billion; investment amounts are IDR trillion.
+  trade: {
+    year: 2024,
+    goods: {
+      exports: 264.7,
+      exportsGrowth: 2.3,
+      imports: 233.7,
+      importsGrowth: 5.6,
+      surplus: 31.0,
+      surplusSince: "May 2020",
+      source: "BPS, customs basis",
+    },
+    markets: [
+      { rank: 1, name: "China", exports: 68.0 },
+      { rank: 2, name: "United States" },
+      { rank: 3, name: "India" },
+    ],
+    marketSource: "BPS, 2024",
+    products: [
+      { name: "Mineral fuels & oils", share: 20.8 },
+      { name: "Animal/vegetable fats & oils", share: 11.7 },
+      { name: "Iron & steel", share: 8.6 },
+    ],
+    productSource: "UN Comtrade/BACI, 2024",
+    investment: {
+      total: 1714.2,
+      growth: 20.8,
+      fdi: 900.2,
+      fdiShare: 52.5,
+      domestic: 814.0,
+      domesticShare: 47.5,
+      jobs: 2.45,
+      topSectors: ["Basic metals", "Transport/warehouse/telecom", "Mining"],
+      topSources: ["Singapore", "Hong Kong", "China", "Malaysia", "Japan", "South Korea"],
+      source: "BKPM, 2024",
+    },
+  },
+
   facts: [
     "Indonesia is the world's 4th most populous country and the largest economy in Southeast Asia.",
     "Real GDP grew 5.03% in 2024, the fifth straight year of growth above 5% outside the 2020 pandemic contraction.",

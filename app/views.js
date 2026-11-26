@@ -1,4 +1,4 @@
-// Shared markup keeps the five views consistent. DATA is the only data source.
+// Shared markup keeps the six views consistent. DATA is the only data source.
 const VIEWS = (() => {
   const format = (value, digits = 0) => Number(value).toLocaleString("en-US", {
     minimumFractionDigits: digits,
@@ -9,6 +9,8 @@ const VIEWS = (() => {
   const heading = text => `<h2>${text}</h2>`;
   const page = (title, description, ...content) =>
     `<h1>${title}</h1><p class="lede">${description}</p>${content.join("")}`;
+  const card = (label, value, unit, note) =>
+    `<div class="card"><div class="card-label">${label}</div><div class="card-value">${value} <span class="card-unit">${unit}</span></div><div class="card-note">${note}</div></div>`;
 
   function table(columns, rows) {
     const header = columns.map(label => `<th>${label}</th>`).join("");
@@ -34,9 +36,10 @@ const VIEWS = (() => {
       `<div class="card"><div class="card-label">${item.label}</div><div class="card-value">${format(item.value, 2)} <span class="card-unit">${item.unit}</span></div><div class="card-note">${item.note}</div></div>`
     ).join("");
     const facts = DATA.facts.map(text => `<li>${text}</li>`).join("");
+    const tradeCard = card("Trade surplus", `US$${format(DATA.trade.goods.surplus, 1)}B`, `(${DATA.trade.year})`, DATA.trade.goods.source);
     return page("Indonesia in numbers",
       `National statistics of Indonesia, ${DATA.year}. Every figure below is a published official statistic — sources: ${DATA.sources}.`,
-      `<div class="grid">${cards}</div>`,
+      `<div class="grid">${cards}${tradeCard}</div>`,
       heading("Key facts"), `<ul class="facts">${facts}</ul>`,
       heading("At a glance: growth and poverty"),
       `<div class="two-col"><div>${trend("gdpGrowth")}</div><div>${trend("poverty")}</div></div>`,
@@ -103,7 +106,50 @@ const VIEWS = (() => {
     );
   }
 
-  return { dashboard, population, economy, labour, social };
+  function trade() {
+    const values = DATA.trade;
+    const goods = values.goods;
+    const investment = values.investment;
+    const cards = [
+      card("Goods exports", `US$${format(goods.exports, 1)}`, "billion", `${goods.source}; +${format(goods.exportsGrowth, 1)}% vs 2023`),
+      card("Goods imports", `US$${format(goods.imports, 1)}`, "billion", `${goods.source}; +${format(goods.importsGrowth, 1)}% vs 2023`),
+      card("Goods trade surplus", `US$${format(goods.surplus, 1)}`, "billion", `${goods.source}; ${values.year}`),
+      card("Foreign direct investment", `IDR ${format(investment.fdi, 1)}`, "trillion", `${investment.source}; ${format(investment.fdiShare, 1)}% of investment realization`),
+    ].join("");
+    const markets = values.markets.map(market => [
+      market.rank,
+      market.name,
+      market.exports === undefined ? "—" : `US$${format(market.exports, 1)} billion`,
+    ]);
+    const investmentRows = [
+      ["Total investment realization", `IDR ${format(investment.total, 1)} trillion (+${format(investment.growth, 1)}% vs 2023)`],
+      ["Foreign direct investment (FDI)", `IDR ${format(investment.fdi, 1)} trillion (${format(investment.fdiShare, 1)}%)`],
+      ["Domestic investment", `IDR ${format(investment.domestic, 1)} trillion (${format(investment.domesticShare, 1)}%)`],
+      ["Jobs created", `${format(investment.jobs, 2)} million`],
+    ];
+    return page("Trade & Investment",
+      `Goods trade and investment realization in ${values.year}. Trade values are in US$; investment amounts are in Indonesian rupiah (IDR).`,
+      `<div class="grid">${cards}</div>`,
+      `<p>Trade surplus every month since ${goods.surplusSince} (BPS; through ${values.year}).</p>`,
+      heading(`Top export markets, ${values.year}`),
+      table(["Rank", "Market", "Goods exports"], markets),
+      source(`Source: ${values.marketSource}. China is the largest export market; United States is second and India third. — indicates no export value supplied.`),
+      heading(`Top export products (% of goods exports), ${values.year}`),
+      values.products.map(product => bar(product.name, product.share)).join(""),
+      source(`Source: ${values.productSource}. Shares are of total goods exports.`),
+      heading(`Investment realization, ${values.year}`),
+      table(["Indicator", "Value"], investmentRows),
+      source(`Source: ${investment.source}.`),
+      heading("Top FDI sectors"),
+      `<ul class="facts">${investment.topSectors.map(sector => `<li>${sector}</li>`).join("")}</ul>`,
+      source(`Source: ${investment.source}.`),
+      heading("Top FDI sources"),
+      `<ul class="facts">${investment.topSources.map(country => `<li>${country}</li>`).join("")}</ul>`,
+      source(`Source: ${investment.source}.`)
+    );
+  }
+
+  return { dashboard, population, economy, labour, social, trade };
 })();
 
 if (typeof module !== "undefined") module.exports = VIEWS;

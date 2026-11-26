@@ -7,6 +7,7 @@
     ["/economy", "economy"],
     ["/labour", "labour"],
     ["/social", "social"],
+    ["/trade", "trade"],
   ]);
 
   const resolve = hash => routes.get(hash.replace(/^#/, "").split("?")[0]) || "dashboard";
