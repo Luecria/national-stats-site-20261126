@@ -1,34 +1,29 @@
-// StatIndo router. Hash routes: #/ (dashboard), #/population, #/economy,
-// #/labour, #/social. No build step; state is read-only (published data).
+// Hash navigation renders a view and keeps the title and menu in sync.
+(() => {
+  const routes = new Map([
+    ["", "dashboard"],
+    ["/", "dashboard"],
+    ["/population", "population"],
+    ["/economy", "economy"],
+    ["/labour", "labour"],
+    ["/social", "social"],
+  ]);
 
-const ROUTES = {
-  "": "dashboard",
-  "/": "dashboard",
-  "/population": "population",
-  "/economy": "economy",
-  "/labour": "labour",
-  "/social": "social",
-};
+  const resolve = hash => routes.get(hash.replace(/^#/, "").split("?")[0]) || "dashboard";
 
-function currentRoute() {
-  const hash = (window.location.hash || "#/").replace(/^#/, "");
-  const path = hash.split("?")[0];
-  return ROUTES[path] || "dashboard";
-}
+  function renderPage() {
+    const route = resolve(window.location.hash || "#/");
+    document.getElementById("app").innerHTML = (VIEWS[route] || VIEWS.dashboard)();
 
-function render() {
-  const route = currentRoute();
-  const app = document.getElementById("app");
-  const view = VIEWS[route] || VIEWS.dashboard;
-  app.innerHTML = view();
-  document.querySelectorAll("nav a").forEach(function (a) {
-    const href = a.getAttribute("href") || "";
-    const p = href.replace(/^#/, "").split("?")[0];
-    a.classList.toggle("active", (ROUTES[p] || "dashboard") === route);
-  });
-  document.title = "StatIndo — " + route.charAt(0).toUpperCase() + route.slice(1) + " | Indonesia " + DATA.year;
-  window.__shotReady = true;
-}
+    for (const link of document.querySelectorAll("nav a")) {
+      link.classList.toggle("active", resolve(link.getAttribute("href") || "") === route);
+    }
 
-window.addEventListener("hashchange", render);
-document.addEventListener("DOMContentLoaded", render);
+    const label = route[0].toUpperCase() + route.slice(1);
+    document.title = `StatIndo — ${label} | Indonesia ${DATA.year}`;
+    window.__shotReady = true;
+  }
+
+  window.addEventListener("hashchange", renderPage);
+  document.addEventListener("DOMContentLoaded", renderPage);
+})();

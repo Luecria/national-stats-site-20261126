@@ -20,11 +20,25 @@ StatIndo presents Indonesia's national statistics for 2024 as a fast static site
 
 ```sh
 # Build the entry output (writes dossier.json + copies app/ and screenshots/)
-MAKEFUN_OUTPUT_DIR=/tmp/statindo-out node main.ts
+MAKEFUN_OUTPUT_DIR=/tmp/statindo-verify node main.ts
 
 # Serve locally and browse the five pages
 node serve.ts   # http://localhost:8080 — #/, #/population, #/economy, #/labour, #/social
 ```
+
+Verified against `app/data.js`: population **281.6 million**, nominal GDP **US$1,396 billion**, GDP per capita **US$4,958**, GDP growth **5.03%**, December year-on-year inflation **1.57%**, August unemployment **4.91%**, September poverty **8.57%**, and HDI **75.02**. Labour force: **143.1 million**; participation: **67.0%**.
+
+Verified annual series, in order from 2020 through 2024:
+
+| Indicator | 2020 | 2021 | 2022 | 2023 | 2024 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Population (million) | 270.2 | 273.5 | 276.4 | 279.1 | 281.6 |
+| GDP growth (%) | -2.07 | 3.69 | 5.31 | 5.05 | 5.03 |
+| Inflation (December, yoy, %) | 1.68 | 1.87 | 5.51 | 2.61 | 1.57 |
+| Unemployment (August, %) | 7.07 | 6.49 | 5.86 | 5.32 | 4.91 |
+| Poverty (September, %) | 10.19 | 9.71 | 9.54 | 9.36 | 8.57 |
+
+The output directory should contain valid `dossier.json` plus identical copies of `app/` and the four files in `screenshots/`. Each route should show its heading and active navigation link. Stop the local server with Ctrl+C when finished.
 
 ## Run
 
