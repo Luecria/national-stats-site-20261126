@@ -1,8 +1,8 @@
 # StatIndo — National Statistics of Indonesia 2024
 
 [![make.fun](https://make.fun/badge/best-national-statistics-site-20261126-0539.svg)](https://make.fun/bounty/best-national-statistics-site-20261126-0539)
-[![rank](https://make.fun/badge/Luecria/national-stats-site-20261126/rank.svg)](https://make.fun/bounty/best-national-statistics-site-20261126-0539)
-[![reward](https://make.fun/badge/Luecria/national-stats-site-20261126/reward.svg)](https://make.fun/bounty/best-national-statistics-site-20261126-0539)
+[![rank](https://make.fun/badge/best-national-statistics-site-20261126-0539/Luecria/national-stats-site-20261126/rank.svg)](https://make.fun/bounty/best-national-statistics-site-20261126-0539)
+[![reward](https://make.fun/badge/best-national-statistics-site-20261126-0539/Luecria/national-stats-site-20261126/reward.svg)](https://make.fun/bounty/best-national-statistics-site-20261126-0539)
 
 [Make the best national statistics site — $50 bounty on make.fun](https://make.fun/bounty/best-national-statistics-site-20261126-0539)
 
