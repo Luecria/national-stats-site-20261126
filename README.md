@@ -18,6 +18,8 @@ StatIndo presents Indonesia's national statistics for 2024 as a fast static site
 
 ## Verify
 
+The data, stylesheet and HTML shell were rewritten with equivalent content; re-verification confirmed unchanged data, identical view HTML and a valid output dossier.
+
 ```sh
 # Build the entry output (writes dossier.json + copies app/ and screenshots/)
 MAKEFUN_OUTPUT_DIR=/tmp/statindo-verify node main.ts
