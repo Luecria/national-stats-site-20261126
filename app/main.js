@@ -8,9 +8,13 @@
     ["/labour", "labour"],
     ["/social", "social"],
     ["/trade", "trade"],
+    ["/energy", "energy"],
   ]);
 
   const resolve = hash => routes.get(hash.replace(/^#/, "").split("?")[0]) || "dashboard";
+
+  if (typeof module !== "undefined") module.exports = { resolve };
+  if (typeof window === "undefined" || typeof document === "undefined") return;
 
   function renderPage() {
     const route = resolve(window.location.hash || "#/");

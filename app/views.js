@@ -1,4 +1,4 @@
-// Shared markup keeps the six views consistent. DATA is the only data source.
+// Shared markup keeps the views consistent. DATA is the only data source.
 const VIEWS = (() => {
   const format = (value, digits = 0) => Number(value).toLocaleString("en-US", {
     minimumFractionDigits: digits,
@@ -26,9 +26,9 @@ const VIEWS = (() => {
     return table(["Year", series.label], rows) + source(`Source: ${series.source}`);
   }
 
-  function bar(label, value, maximum = 100, suffix = "%") {
+  function bar(label, value, maximum = 100, suffix = "%", digits = 1) {
     const width = Math.max(0, Math.min(100, value / maximum * 100)).toFixed(1);
-    return `<div class="bar-row"><span class="bar-label">${label}</span><div class="bar-track"><div class="bar-fill" style="width:${width}%"></div></div><span class="bar-value">${format(value, 1)}${suffix}</span></div>`;
+    return `<div class="bar-row"><span class="bar-label">${label}</span><div class="bar-track"><div class="bar-fill" style="width:${width}%"></div></div><span class="bar-value">${format(value, digits)}${suffix}</span></div>`;
   }
 
   function dashboard() {
@@ -149,7 +149,42 @@ const VIEWS = (() => {
     );
   }
 
-  return { dashboard, population, economy, labour, social, trade };
+  function energy() {
+    const values = DATA.energy;
+    const capacity = values.capacity;
+    const generation = values.generation;
+    const mining = values.mining;
+    const target = values.renewablesTarget;
+    const cards = [
+      card("Installed power capacity", format(capacity.totalGW, 1), "GW", `${format(capacity.renewableGW, 1)} GW renewables (${format(capacity.renewableShare)}%) · ${capacity.source}`),
+      card("Electricity generation", format(generation.totalTWh, 1), "TWh", `${format(generation.renewableTWh, 2)} TWh new & renewable (${format(generation.renewableShare, 1)}%) · ${generation.source}`),
+      card("Electrification ratio", format(values.electrificationRatio, 2), "%", values.electricitySource),
+      card("Electricity use per person", format(values.electricityPerPersonKWh), "kWh", values.electricitySource),
+    ].join("");
+    const miningRows = [
+      ["Coal production", `${format(mining.coalProductionMt)} million tonnes`, `Record; ${format(mining.coalProduction2023Mt)} million tonnes in 2023 (${mining.coalSource})`],
+      ["Coal exports", `${format(mining.coalExportsMt)} million tonnes`, `Indonesia is the world's largest thermal coal exporter (${mining.coalSource})`],
+      ["Mined nickel production", `${format(mining.nickelProductionMt, 2)} million tonnes`, `About ${format(mining.nickelWorldShare)}% of world output (${mining.nickelSource})`],
+    ];
+    return page("Energy & Environment",
+      `Indonesia's 2024 energy mix, electricity system, mining and environmental indicators.`,
+      heading("Primary energy mix, 2024"),
+      values.primaryMix.map(item => bar(item.name, item.share, 45, "%", 2)).join(""),
+      source(`Source: ${values.primaryMixSource}. Shares may not sum to 100% due to rounding.`),
+      heading("Power system, 2024"), `<div class="grid">${cards}</div>`,
+      heading("Mining, 2024"),
+      table(["Indicator", "Output", "Context"], miningRows),
+      source(`Sources: ${mining.coalSource} (coal); ${mining.nickelSource} (nickel).`),
+      heading("Emissions and renewable potential"),
+      `<div class="two-col"><div>${card("Greenhouse-gas emissions", `About ${format(values.emissionsMtCO2e)} Mt`, "CO2e", values.emissionsSource)}</div><div>${card("Renewable energy potential", `${format(values.renewablePotentialGW, 1)} GW`, "potential", `About ${format(values.renewablePotentialUtilisedShare, 1)}% utilised · ${values.potentialSource}`)}</div></div>`,
+      `<p>Clean electricity was ${format(values.cleanElectricityShare)}% in 2024; wind and solar together were only ${format(values.windSolarElectricityShare, 1)}% of electricity.</p>`,
+      source(`Source: ${values.cleanElectricitySource}.`),
+      heading("Renewables target"),
+      `<p class="facts">The ${format(target.share)}% renewables target for the primary energy mix was set for ${format(target.originalYear)} and has been moved to ${format(target.currentYear)} (${target.source}).</p>`
+    );
+  }
+
+  return { dashboard, population, economy, labour, social, trade, energy };
 })();
 
 if (typeof module !== "undefined") module.exports = VIEWS;

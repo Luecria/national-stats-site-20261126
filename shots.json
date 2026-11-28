@@ -1,1 +1,28 @@
-{"shots":[{"file":"1-dashboard.png","height":800,"route":"#/","width":1280},{"file":"2-economy.png","height":800,"route":"#/economy","width":1280},{"file":"3-population-phone.png","height":844,"route":"#/population","width":390},{"file":"4-trade.png","height":800,"route":"#/trade","width":1280}]}
+{
+  "shots": [
+    {
+      "file": "1-dashboard.png",
+      "height": 800,
+      "route": "#/",
+      "width": 1280
+    },
+    {
+      "file": "2-energy.png",
+      "height": 800,
+      "route": "#/energy",
+      "width": 1280
+    },
+    {
+      "file": "3-population-phone.png",
+      "height": 844,
+      "route": "#/population",
+      "width": 390
+    },
+    {
+      "file": "4-trade.png",
+      "height": 800,
+      "route": "#/trade",
+      "width": 1280
+    }
+  ]
+}

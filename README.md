@@ -6,7 +6,7 @@
 
 [Make the best national statistics site — $50 bounty on make.fun](https://make.fun/bounty/best-national-statistics-site-20261126-0539)
 
-StatIndo presents Indonesia's national statistics for 2024 as a fast static site: a dashboard of headline indicators, plus Population, Economy, Labour, Social and Trade & Investment pages. Sources include BPS (Statistics Indonesia), the World Bank, IMF, BKPM and UN Comtrade/BACI, with source and reference year labels alongside the figures.
+StatIndo presents Indonesia's national statistics for 2024 as a fast static site: a dashboard of headline indicators, plus Population, Economy, Labour, Social, Trade & Investment, and Energy & Environment pages. Sources include BPS (Statistics Indonesia), the World Bank, IMF, BKPM, UN Comtrade/BACI, ESDM and USGS, with source and reference year labels alongside the figures.
 
 ## What it shows
 
@@ -16,19 +16,18 @@ StatIndo presents Indonesia's national statistics for 2024 as a fast static site
 - **Labour** — unemployment trend and the 2024 labour market (143.1M labour force, 67.0% participation).
 - **Social** — poverty trend (8.57% in Sep 2024, the lowest on record), HDI, life expectancy, Gini.
 - **Trade & Investment** — exports US$264.7B (+2.3%), imports US$233.7B (+5.6%), surplus US$31.0B, top markets and products, and BKPM investment realization of IDR 1,714.2 trillion (+20.8%): FDI IDR 900.2 trillion (52.5%), domestic IDR 814.0 trillion (47.5%), and 2.45 million jobs; top FDI sectors and sources.
+- **Energy & Environment** — primary energy mix (coal 40.37%, oil 28.82%, natural gas 16.17%, new & renewable 14.65%; ESDM); 101.1 GW installed capacity with 15.1 GW renewables, and 371.6 TWh generation with 67.23 TWh new & renewable (IESR / ESDM); 99.83% electrification and 1,411 kWh use per person (ESDM); record coal production of 836 million tonnes (775 million tonnes in 2023), 555 million tonnes exported, and largest thermal coal exporter (ESDM); mined nickel 2.31 million tonnes, about 62% of world output (USGS); about 1,041 Mt CO2e emissions (BPS); 417.8 GW renewable potential, about 2.5% utilised (ESDM); 18% clean electricity and 0.5% from wind and solar (Ember); 23% primary-mix renewables target shifted from 2025 to 2029 (RPJMN 2025–2029). Shares may not sum to 100% due to rounding.
 
 ## Verify
 
-Version 2 adds `#/trade`, a sixth navigation item, and the dashboard trade surplus card; verify all six views offline against `app/data.js`, retaining every pre-existing data value and the existing screenshots.
-
-The data, stylesheet and HTML shell were rewritten with equivalent content; re-verification confirmed unchanged data, identical view HTML and a valid output dossier.
+Version 3 adds `#/energy` as the seventh view and navigation item, with 2024 energy, mining and environment indicators. Verify all seven views offline against `app/data.js`; the new 1280 × 800 Energy view screenshot is `screenshots/2-energy.png` (it replaces the Economy screenshot; the dashboard already shows the GDP and inflation trends).
 
 ```sh
 # Build the entry output (writes dossier.json + copies app/ and screenshots/)
 MAKEFUN_OUTPUT_DIR=/tmp/statindo-verify node main.ts
 
-# Serve locally and browse the six pages (where local ports are permitted)
-node serve.ts   # http://localhost:8080 — #/, #/population, #/economy, #/labour, #/social, #/trade
+# Serve locally and browse the seven pages (where local ports are permitted)
+node serve.ts   # http://localhost:8080 — #/, #/population, #/economy, #/labour, #/social, #/trade, #/energy
 ```
 
 Verified against `app/data.js`: population **281.6 million**, nominal GDP **US$1,396 billion**, GDP per capita **US$4,958**, GDP growth **5.03%**, December year-on-year inflation **1.57%**, August unemployment **4.91%**, September poverty **8.57%**, and HDI **75.02**. Labour force: **143.1 million**; participation: **67.0%**.
