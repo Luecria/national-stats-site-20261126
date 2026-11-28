@@ -1,4 +1,4 @@
-// A tiny static server for app/ (Node 22, standard library only), so the site can be run locally without a
+// A minimal Node 22 standard-library server serves app/ locally without a
 // build step: `node serve.ts` serves app/ on http://localhost:8080 (`--port <n>` for another port). It sends the MIME
 // types a browser needs, refuses any path outside app/, and otherwise does nothing clever: this is a development
 // convenience, not a web server for the internet.

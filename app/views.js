@@ -1,4 +1,4 @@
-// Shared markup keeps the views consistent. DATA is the only data source.
+// View helpers share markup; every figure continues to come from DATA.
 const VIEWS = (() => {
   const format = (value, digits = 0) => Number(value).toLocaleString("en-US", {
     minimumFractionDigits: digits,

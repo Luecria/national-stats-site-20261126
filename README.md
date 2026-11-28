@@ -6,7 +6,7 @@
 
 [Make the best national statistics site — $50 bounty on make.fun](https://make.fun/bounty/best-national-statistics-site-20261126-0539)
 
-StatIndo presents Indonesia's national statistics for 2024 as a fast static site: a dashboard of headline indicators, plus Population, Economy, Labour, Social, Trade & Investment, and Energy & Environment pages. Sources include BPS (Statistics Indonesia), the World Bank, IMF, BKPM, UN Comtrade/BACI, ESDM and USGS, with source and reference year labels alongside the figures.
+StatIndo is a fast static site for Indonesia's national statistics for 2024: a dashboard of headline indicators, plus Population, Economy, Labour, Social, Trade & Investment, and Energy & Environment pages. Sources include BPS (Statistics Indonesia), the World Bank, IMF, BKPM, UN Comtrade/BACI, ESDM and USGS, with source and reference year labels alongside the figures.
 
 ## What it shows
 

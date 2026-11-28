@@ -1,4 +1,4 @@
-// StatIndo: Indonesia's national indicators for the 2024 reference year.
+// StatIndo publishes Indonesia's national indicators for reference year 2024.
 // Sources and reference periods stay alongside the headline and annual data.
 // The views read this shared object without modifying the published figures.
 const DATA = {

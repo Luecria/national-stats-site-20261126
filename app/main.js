@@ -1,4 +1,4 @@
-// Hash navigation renders a view and keeps the title and menu in sync.
+// Hash-based navigation selects the view and updates the page title and menu state.
 (() => {
   const routes = new Map([
     ["", "dashboard"],
